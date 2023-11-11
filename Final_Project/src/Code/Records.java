@@ -1,5 +1,5 @@
 package Code;
-
+//updated
 //import GUI.Display;	
 import Code.Note;
 import Code.timer;
@@ -7,12 +7,13 @@ import Code.timer;
 public class Records {
     private Note noteInstance;
     private timer timerInstance;
-    
+    private Activity activityInstance;
 
-    // Constructor for initializing the Note and timer instances
-    public Records(String note, String timeString) {
+    //Constructor for initializing the Note and timer instances
+    public Records(String note, String timeString, String activityName, String date, String time) {
         this.noteInstance = new Note(note);
-        //this.timerInstance = new timer(timeString);
+        this.timerInstance = new timer();
+        this.activityInstance = new Activity(activityName, date, time, null);
     }
 
 
@@ -20,24 +21,32 @@ public class Records {
      * Update display function for the screen records
      */
     public void updateDisplay() {
-        // Assuming recordsDisplay() returns some kind of display component
-      //  GUI display = recordsDisplay();
+   /**
+    *assuming recordsDisplay() returns some kind of display component
+    *"display" is just a place holder name for wherever we display stuff
+    **/
 
-        // Retrieve note and timeString from instances
+    	//  GUI display = recordsDisplay();
+    	
+        /**
+         *  Retrieve note and timeString from instances
+         */
         String note = noteInstance.getNote();
-       // String timeString = timerInstance.makeTimeString(
-          //      timerInstance.timeConversion(timerInstance.getTime())
-       // );
+        String timeString = timerInstance.getTimeString();
+        String Activity = activityInstance.getActivityName();
+        String date = activityInstance.getDate();
+        String time = activityInstance.getTime();
 
         /**
          *  Set text on the display component
-         *  error is because ther
+         *  
          */
-       // display.setText(note + " " + timeString);   
+       // display.setText(note + " " + timeString + " " + Activity + " " + date +
+       //  " " + time);   
         
     }
 
-    // Assume you have a method like this in your class
+    
    // private GUI recordsDisplay() {
         // Implementation of the method to get the display
         // ...
