@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import java.util.Timer;
 import java.util.TimerTask;
+import javax.swing.*;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -12,6 +13,19 @@ public class GUI extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
+	private JLabel menuText = new JLabel("Main Menu");
+	private JButton startActivity = new JButton("Start Activity");
+   	private JButton Review = new JButton("Review Records");
+   	private JButton start;
+   	private JButton Pause;
+   	private JButton addNote;
+   	private JButton Reset;
+   	private JLabel activityName;
+   	private JLabel activitySetupHeader;
+   	private JLabel activityHeader;
+   	private JTextArea activityOptional;
+   	private JTextArea activityNotes;
+   	private JLabel timerLabel = new JLabel();
 	private int time = 0; 
 	private Timer timer = new Timer();
 	
@@ -36,7 +50,7 @@ public class GUI extends JFrame {
 	    	timer.cancel();
 	        time = 0;
 	        //clear time
-	        lbl1.setText("00 : 00 : 00");													//label for the time 
+	        timerLabel.setText("00 : 00 : 00");													//label for the time 
 	    }
 
 	    public void action() {																//function to start the timer
@@ -46,7 +60,7 @@ public class GUI extends JFrame {
 	        int[] timing = timeConversion(time);
 	        //setting up the string for the timer
 	        String timeString = makeTimeString(timing[0], timing[1], timing[2]);
-	        lbl1.setText(timeString);														//label for the time
+	        timerLabel.setText(timeString);														//label for the time
 	    }
 
 	    public int[] timeConversion(int seconds) {											//function to convet seconds to minutes then minutes to hours
@@ -101,7 +115,13 @@ public class GUI extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
+		JPanel TextPanel = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		add(contentPane);
+		contentPane.add(TextPanel);
+		TextPanel.add(menuText);
+		contentPane.add(startActivity);
+		contentPane.add(Review);
 
 		setContentPane(contentPane);
 	}
