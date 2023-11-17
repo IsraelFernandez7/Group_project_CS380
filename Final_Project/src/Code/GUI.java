@@ -1,37 +1,106 @@
 package Code;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
 import java.util.Timer;
 import java.util.TimerTask;
 import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-public class GUI extends JFrame {
+public class GUI extends JFrame implements ActionListener {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
+	private JFrame activityFrame;
+	private JFrame SetupFrame;
+	private JFrame recordsFrame;
+	private JTextField name = new JTextField(30);
+	private boolean menuClosed = false;
 	private JLabel menuText = new JLabel("Main Menu");
 	private JButton startActivity = new JButton("Start Activity");
    	private JButton Review = new JButton("Review Records");
-   	private JButton start;
-   	private JButton Pause;
-   	private JButton addNote;
-   	private JButton Reset;
+   	private JButton start = new JButton("Start");
+   	private JButton Pause = new JButton("Pause");
+   	private JButton addNote = new JButton("Add Note");
+   	private JButton Reset = new JButton("Reset");
    	private JLabel activityName;
    	private JLabel activitySetupHeader;
    	private JLabel activityHeader;
-   	private JTextArea activityOptional;
-   	private JTextArea activityNotes;
-   	private JLabel timerLabel = new JLabel();
+   	private JTextArea activityOptional = new JTextArea();
+   	private JTextArea activityNotes = new JTextArea();
+   	private JLabel timerLabel = new JLabel("00 : 00 : 00");;
 	private int time = 0; 
-	private Timer timer = new Timer();
+	private Timer timer;
 	
+	public void recordsFrameOptions() {
+		
+	}
+	public void activitySetupFrameOptions() {
+		start.addActionListener(this);
+		JPanel mainPanel = new JPanel();
+		JPanel buttonPanel = new JPanel();
+		JPanel fieldPanel = new JPanel();
+		JPanel textpanePanel = new JPanel();
+		SetupFrame = new JFrame();
+		SetupFrame.setVisible(true);
+		SetupFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		SetupFrame.setBounds(200, 200, 450, 300);
+		SetupFrame.add(mainPanel);
+		mainPanel.add(textpanePanel);
+		mainPanel.add(fieldPanel);
+		mainPanel.add(buttonPanel);
+		fieldPanel.add(name);
+		buttonPanel.add(start);
+		textpanePanel.add(activityOptional);
+		mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
+	}
 	
-
-	    public void start1() {
+	public void activityFrameOptions() {
+		Pause.addActionListener(this);
+		Reset.addActionListener(this);
+		JPanel timerPanel = new JPanel();
+		JPanel buttonPanel = new JPanel();
+		JPanel textPanel = new JPanel();
+		JPanel notesPanel = new JPanel();
+		JPanel activityPanel = new JPanel();
+		activityFrame = new JFrame();
+		activityFrame.setVisible(true);
+		activityFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		activityFrame.setBounds(200, 200, 450, 300);
+		activityFrame.add(activityPanel);
+		activityPanel.add(textPanel);
+		activityPanel.add(notesPanel);
+		activityPanel.add(timerPanel);
+		activityPanel.add(buttonPanel);
+		notesPanel.add(activityNotes);
+		timerPanel.add(timerLabel);
+		buttonPanel.add(Pause);
+		buttonPanel.add(addNote);
+		buttonPanel.add(Reset);
+		activityPanel.setLayout(new BoxLayout(activityPanel, BoxLayout.Y_AXIS));
+		start1();
+	}
+	
+	public void actionPerformed(ActionEvent e) {
+		if(e.getSource() == startActivity) {
+			this.dispose();
+			activitySetupFrameOptions();
+		}
+		if(e.getSource()== start) {
+			SetupFrame.dispose();
+			activityFrameOptions();
+		}
+		if(e.getSource() == Pause) {
+			stop1();
+		}
+		if(e.getSource() == Reset) {
+			reset1();
+		}
+	}
+	public void start1() {
+	    	timer = new Timer();
 	        timer.scheduleAtFixedRate(new TimerTask() {
 	            @Override
 	            public void run() {
@@ -40,17 +109,17 @@ public class GUI extends JFrame {
 	        }, 0, 1000);
 	    }
 
-	    public void stop1() {																//function to stop the timer
+	 public void stop1() {																//function to stop the timer
 	    	//stop timer
 	        timer.cancel();
 	    }
 
 	    public void reset1() {
-	    	//stop timer
 	    	timer.cancel();
 	        time = 0;
 	        //clear time
 	        timerLabel.setText("00 : 00 : 00");													//label for the time 
+	        start1();
 	    }
 
 	    public void action() {																//function to start the timer
@@ -101,6 +170,7 @@ public class GUI extends JFrame {
 				try {
 					GUI frame = new GUI();
 					frame.setVisible(true);
+					
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -112,6 +182,8 @@ public class GUI extends JFrame {
 	 * Create the frame.
 	 */
 	public GUI() {
+		startActivity.addActionListener(this);
+		Review.addActionListener(this);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -122,8 +194,7 @@ public class GUI extends JFrame {
 		TextPanel.add(menuText);
 		contentPane.add(startActivity);
 		contentPane.add(Review);
-
-		setContentPane(contentPane);
 	}
+
 
 }
