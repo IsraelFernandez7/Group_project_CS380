@@ -52,9 +52,9 @@ public class Database {
 			Statement st = con.createStatement();
 			ResultSet rs = st.executeQuery("select * from activites");
 			while(rs.next()) {
-				output += (rs.getString(activityName) + " ");
-				output += (rs.getString(date) + " ");
-				output += (rs.getString(timer) + " ");
+				output += (rs.getString(activityName) + " | ");
+				output += (rs.getString(date) + " | ");
+				output += (rs.getString(timer) + " | ");
 				output += (rs.getString(notes));
 				output += "\n";
 			}
@@ -121,7 +121,7 @@ public class Database {
 		if(!name.equals("")) {
 			conditions.add("\"" + name + "\"");
 		}else {
-			return;
+			conditions.add("NULL");
 		}
 		if(!activityDate.equals("")) {
 			conditions.add("\"" + activityDate + "\"");
@@ -160,7 +160,7 @@ public class Database {
 	
 	
 	/**
-	 * method to update entries based on then name of the activity
+	 * method to update entries based on then date and timer of activity
 	 * @param name
 	 * @param activityDate
 	 * @param activityTimer
@@ -171,14 +171,14 @@ public class Database {
 		ArrayList<String> conditions = new ArrayList<String>();
 		
 		//create conditions for updating
-		if(name.equals("")) {
+		if(!name.equals("")) {
+			conditions.add(activityName + "=\"" + name + "\"");;
+		}
+		if(activityDate.equals("")) {
 			return;
 		}
-		if(!activityDate.equals("")) {
-			conditions.add(date + "=\"" + activityDate + "\"");
-		}
-		if(!activityTimer.equals("")) {
-			conditions.add(timer + "=\"" + activityTimer + "\"");
+		if(activityTimer.equals("")) {
+			return;
 		}
 		if(!activityNotes.equals("")) {
 			conditions.add(notes + "=\"" + activityNotes + "=\"");
@@ -192,7 +192,8 @@ public class Database {
 		}
 		
 		//create final query
-		String query = "Update " + table + " set " + joinedConditions + " where " + activityName + "=" + name;
+		String query = "Update " + table + " set " + joinedConditions + " where " + date + "=" + "'" + activityDate
+				+ "'" + " and " + timer + "=" + "'" + activityTimer + "'";
 		System.out.println("Try to update: " + query);
 		
 		try {
