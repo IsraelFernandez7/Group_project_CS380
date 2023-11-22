@@ -30,12 +30,26 @@ public class Activity {
 		return activityName;
 	}
 	
+	/*
+	 * method to set activity name
+	 */
+	public void setActivityName(String name) {
+		this.activityName = name;
+	}
+	
 	/**
 	 * method to get note object
 	 * @return note object
 	 */
 	public Note getNote() {
 		return note;
+	}
+	
+	/*
+	 * method to add onto note within activity class
+	 */
+	public void setNote(String addedNote) {
+		note.addNote(addedNote);
 	}
 	
 	/**
@@ -52,5 +66,12 @@ public class Activity {
 	 */
 	public String getTime() {
 		return time;
+	}
+	
+	/*
+	 * method to update time of activity
+	 */
+	public void setTime(String updatedTime) {
+		time = updatedTime;
 	}
 }
