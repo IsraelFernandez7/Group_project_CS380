@@ -1,22 +1,83 @@
 package Code;
+import java.awt.event.ActionEvent;
+import java.sql.Connection;
+import java.sql.DriverManager;
+
 //updated
 //import GUI.Display;	
 import Code.Note;
-import Code.timer;
+import Code.timerClass;
 
 public class Records {
     private Note noteInstance;
-    private timer timerInstance;
+    private timerClass timerInstance;
     private Activity activityInstance;
-
+    
+    
+protected static void main(String[] args) {
+	Database.connection();
+}
+	
+	
     //Constructor for initializing the Note and timer instances
-    public Records(String note, String timeString, String activityName, String date, String time) {
+    public Records(String note, String timeString, String activityName, String date) {
         this.noteInstance = new Note(note);
-        this.timerInstance = new timer();
-        this.activityInstance = new Activity(activityName, date, time, null);
+        this.timerInstance = new timerClass();
+        this.activityInstance = new Activity(activityName, date, timeString, null);
     }
 
+    /**
+     * print
+     * @param e
+     */
+    public void actionPerformed(ActionEvent e) {
+    	System.out.println("Add Data");
+        Database.add(textField_Activity.getActivityName(),
+        		textField_date.getDate(), 
+        		textField_timeString.getTimeString(),
+        		textField_note.getNote());
+    }
+    
+    
+    /**
+     * print button
+     * @param e
+     */
+    public void actionPerformed(ActionEvent e) {
+    	System.out.println("Print Data");
+        Database.printTable();
+    }
+   
 
+    /**
+     * remove button
+     * @param e
+     */
+    public void actionPerformed(ActionEvent e) {
+    	System.out.println("Remove Data");
+        Database.remove(textField_Activity.getActivityName(),
+        		textField_date.getDate(), 
+        		textField_time.getTime(),
+        		textField_timeString.getTimeString(),
+        		textField_note.getNote());
+    }
+
+    
+    /**
+     * this is the method for the update button 
+     * @param e
+     */
+    public void actionPerformed(ActionEvent e) {
+    	System.out.println("Update Data");
+        Database.update(textField_Activity.getActivityName(),
+        		textField_date.getDate(),
+        		textField_time.getTime(),
+        		 
+        		textField_timeString.getTimeString(),
+        		textField_note.getNote());
+    }
+    
+    
     /**
      * Update display function for the screen records
      */
@@ -45,6 +106,9 @@ public class Records {
        //  " " + time);   
         
     }
+    
+    
+    
 
     
    // private GUI recordsDisplay() {
