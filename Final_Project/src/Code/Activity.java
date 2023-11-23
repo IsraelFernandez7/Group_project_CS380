@@ -5,7 +5,7 @@ public class Activity {
 	//variables that will be used
 	private Note note;
 	private String date;
-	private String time;
+	private String timeString;
 	private String activityName;
 	
 	/**
@@ -15,10 +15,10 @@ public class Activity {
 	 * @param time amount of time that was saved during the activity
 	 * @param note notes that may have been written
 	 */
-	public Activity (String activityName, String date, String time, Note note) {
+	public Activity (String activityName, String date, String timeString, Note note) {
 		this.activityName = activityName;
 		this.date = date;
-		this.time = time;
+		this.timeString = timeString;
 		this.note = note;
 	}
 	
@@ -65,13 +65,13 @@ public class Activity {
 	 * @return the time the activity took
 	 */
 	public String getTime() {
-		return time;
+		return timeString;
 	}
 	
 	/*
 	 * method to update time of activity
 	 */
-	public void setTime(String updatedTime) {
-		time = updatedTime;
-	}
+	//public void setTime(String updatedTime) {
+		//time = updatedTime;
+	//}
 }
