@@ -8,7 +8,7 @@ public class Database {
 	public static void connection() {
 		String url = "jdbc:mysql://localhost:3306/new_schema";
 		String username = "root";
-		String pass = "supercheackbear";
+		String pass = "";
 		
 		try {
 			con = DriverManager.getConnection(url, username, pass);
